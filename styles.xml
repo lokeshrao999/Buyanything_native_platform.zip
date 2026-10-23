@@ -1,0 +1,9 @@
+<resources>
+    <style name="Theme.BuyAnything" parent="android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:colorAccent">#1769ff</item>
+        <item name="android:navigationBarColor">#10182a</item>
+        <item name="android:statusBarColor">#0e4edb</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>

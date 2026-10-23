@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#1769ff">
+  <meta name="description" content="BuyAnything food delivery — discover, customize, and track your favorite food.">
+  <title>buyanything • Food delivery</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand-mark">B</div>
+      <div class="brand-copy"><div class="brand-name">buyanything<span>.</span></div><button class="location-btn" id="locationBtn">⌖ Delivering to <b>Home</b> ▾</button></div>
+      <button class="icon-btn theme-btn" id="themeBtn" aria-label="Toggle dark mode">☾</button>
+    </header>
+
+    <section class="hero">
+      <div class="hero-content">
+        <span class="eyebrow">GOOD FOOD. GOOD MOOD.</span>
+        <h1>Your cravings,<br><em>on the way.</em></h1>
+        <p>Fresh picks from places you’ll love.</p>
+        <button class="hero-cta" id="dealBtn">Explore today's deal <span>↗</span></button>
+      </div>
+      <div class="hero-art" aria-hidden="true"><div class="plate"><div class="food-art">🍔</div><span class="leaf leaf1">✦</span><span class="leaf leaf2">✦</span></div><div class="floating-tag">50% OFF <small>first order</small></div></div>
+    </section>
+
+    <section class="search-wrap">
+      <span class="search-icon">⌕</span>
+      <input id="searchInput" type="search" placeholder="Search biryani, shawarma, juices…" autocomplete="off">
+      <button id="clearSearch" aria-label="Clear search" hidden>×</button>
+    </section>
+
+    <section class="section">
+      <div class="section-heading"><div><span class="eyebrow">WHAT ARE YOU IN THE MOOD FOR?</span><h2>Explore categories</h2></div></div>
+      <div class="category-row" id="categoryRow"></div>
+    </section>
+
+    <section class="deal-strip" id="dealStrip">
+      <div class="deal-icon">⚡</div><div class="deal-text"><b>Blue Friday Specials</b><span>Save ₹80 on orders above ₹299</span></div><span class="deal-code">BLUE80</span>
+    </section>
+
+    <section class="section menu-section">
+      <div class="section-heading"><div><span class="eyebrow">HANDPICKED FOR YOU</span><h2 id="menuHeading">Popular near you</h2></div><button class="text-btn" id="sortBtn">Top picks ⇅</button></div>
+      <div class="filter-row">
+        <button class="filter-chip active" data-filter="all">All food</button>
+        <button class="filter-chip" data-filter="veg">🌱 Veg</button>
+        <button class="filter-chip" data-filter="fast">⚡ Under 20 min</button>
+        <button class="filter-chip" data-filter="popular">★ Popular</button>
+      </div>
+      <div class="food-grid" id="foodGrid"></div>
+      <div class="empty-state" id="emptyState" hidden><span>🥣</span><b>No dishes found</b><p>Try another search or category.</p></div>
+    </section>
+
+    <section class="section why-section">
+      <div class="section-heading"><div><span class="eyebrow">THE BUYANYTHING PROMISE</span><h2>Little things, done better.</h2></div></div>
+      <div class="promise-grid">
+        <div class="promise-card"><span>🛵</span><b>Live order steps</b><small>Follow every stage of your order.</small></div>
+        <div class="promise-card"><span>💙</span><b>Saved favorites</b><small>Your go-to dishes, one tap away.</small></div>
+        <div class="promise-card"><span>♻️</span><b>Less packaging</b><small>Choose a lower-waste delivery.</small></div>
+      </div>
+    </section>
+
+    <nav class="bottom-nav">
+      <button class="nav-item selected" data-page="home"><span>⌂</span><small>Home</small></button>
+      <button class="nav-item" data-page="favorites"><span>♡</span><small>Favorites</small><i id="favDot" hidden></i></button>
+      <button class="cart-nav" id="openCart"><span>🛍</span><b>Cart</b><strong id="cartCount">0</strong></button>
+      <button class="nav-item" data-page="orders"><span>▤</span><small>Orders</small></button>
+      <button class="nav-item" data-page="profile"><span>☺</span><small>Profile</small></button>
+    </nav>
+  </div>
+
+  <div class="overlay" id="overlay" hidden></div>
+  <aside class="drawer" id="cartDrawer" aria-label="Your cart" aria-hidden="true">
+    <div class="drawer-head"><div><span class="eyebrow">YOUR PICKS</span><h2>Your cart <span id="cartTitleCount"></span></h2></div><button class="icon-btn" id="closeCart" aria-label="Close cart">×</button></div>
+    <div id="cartItems" class="cart-items"></div>
+    <div id="cartEmpty" class="cart-empty"><span>🛍</span><b>Your cart is taking a nap</b><p>Add something delicious to wake it up.</p></div>
+    <div class="cart-bottom" id="cartBottom">
+      <label class="eco-option"><input type="checkbox" id="ecoCheck"> 🌿 Use minimal packaging</label>
+      <div class="bill-row"><span>Item total</span><b id="subtotal">₹0</b></div>
+      <div class="bill-row"><span>Delivery fee</span><b id="deliveryFee">₹25</b></div>
+      <div class="bill-row savings"><span>Blue Friday savings</span><b id="savings">−₹0</b></div>
+      <div class="bill-row total-row"><span>Total</span><b id="total">₹25</b></div>
+      <button class="primary-btn" id="checkoutBtn">Continue to checkout <span>→</span></button>
+      <small class="fine-print">Demo checkout — no payment will be collected.</small>
+    </div>
+  </aside>
+
+  <div class="modal-wrap" id="modalWrap" hidden>
+    <div class="modal" id="modalBox" role="dialog" aria-modal="true">
+      <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
